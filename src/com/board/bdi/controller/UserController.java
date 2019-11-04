@@ -24,9 +24,10 @@ public class UserController extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String utId = request.getParameter("utId");		//login.jsp 의 form 이 post 방식이므로 doPost 가 실행request.getParameter() < () 안의 값은 login.jsp 에 input name 과 동일해야함(대소문자까지)
-		String utPwd = request.getParameter("utPwd");	//5.doPost 에 있는 getParameter로 login 에 input 된 utId,utPwd 가 각 변수에 대입됨
-		String utName = request.getParameter("utName");
+		request.setCharacterEncoding("utf-8");
+		String utId = request.getParameter("ut_id");		//login.jsp 의 form 이 post 방식이므로 doPost 가 실행request.getParameter() < () 안의 값은 login.jsp 에 input name 과 동일해야함(대소문자까지)
+		String utPwd = request.getParameter("ut_pwd");	//5.doPost 에 있는 getParameter로 login 에 input 된 utId,utPwd 가 각 변수에 대입됨
+		String utName = request.getParameter("ut_name");
 		String uri = request.getRequestURI();		//uri 주소를 받아와서 변수명 uri 에 대입
 		String cmd = uri.substring(6);				//변수 uri 의 6번째 글자부터 받아와서 cmd 에 대입
 		String path = "/views/msg";	//views 폴더의 msg.jsp 로 가기

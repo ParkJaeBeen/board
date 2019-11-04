@@ -11,15 +11,15 @@
 	<table>
 		<tr>
 			<th>닉네임</th>
-			<td><input type="text" name="utName" id="utName"></td>
+			<td><input type="text" name="ut_name" id="ut_name"></td>
 		</tr>
 		<tr>
 			<th>아이디</th>
-			<td><input type="text" name="utId" id="utId"></td>
+			<td><input type="text" name="ut_id" id="ut_id"></td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
-			<td><input type="password" name="utPwd" id="utPwd"></td>
+			<td><input type="password" name="ut_pwd" id="ut_pwd"></td>
 		</tr>
 		<tr>
 			<th>비밀번호확인</th>

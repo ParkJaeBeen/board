@@ -21,8 +21,7 @@ if(user == null)
 else
 {
 	%>
-	
-	<a href="/views/board/list"><button>게시판 가기</button></a> 
+	<a href="/board/list"><button>게시판 가기</button></a> 
 	<%
 }
 %>

@@ -12,11 +12,11 @@
 	<table>
 		<tr>
 			<th>ID</th>
-			<td><input type="text" name="utId" id="utId"></td>	<!-- 3.input 타입을 정해놓고 값을 받아옴-->
+			<td><input type="text" name="ut_id" id="ut_id"></td>	<!-- 3.input 타입을 정해놓고 값을 받아옴-->
 		</tr>
 		<tr>
 			<th>Pwd</th>
-			<td><input type="password" name="utPwd" id="utPwd"></td>
+			<td><input type="password" name="ut_pwd" id="ut_pwd"></td>
 		</tr>
 		<tr>
 			<th colspan="2"><button>로그인</button></th>	<!-- 4.로그인을 클릭,엔터 시 web.xml 의 /user/* 형식에 따라 UserController로 가게 됨 -->
