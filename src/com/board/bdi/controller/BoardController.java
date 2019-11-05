@@ -24,7 +24,7 @@ public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = request.getRequestURI();
 		String cmd = uri.substring(7);
-		System.out.println(cmd); 
+		System.out.println(cmd + "(내가 나온다는건 BoardController의 doget메소드를 탄다는것)"); 
 		String path = "/views/board/list";
 		List<Map<String,String>> bb = new ArrayList<>();
 		if("list".equals(cmd))

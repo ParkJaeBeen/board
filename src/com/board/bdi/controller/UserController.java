@@ -30,6 +30,7 @@ public class UserController extends HttpServlet {
 		String utName = request.getParameter("ut_name");
 		String uri = request.getRequestURI();		//uri 주소를 받아와서 변수명 uri 에 대입
 		String cmd = uri.substring(6);				//변수 uri 의 6번째 글자부터 받아와서 cmd 에 대입
+		System.out.println(cmd + "(나는 UserController의 doPost)");
 		String path = "/views/msg";	//views 폴더의 msg.jsp 로 가기
 		if("login".equals(cmd))
 		{

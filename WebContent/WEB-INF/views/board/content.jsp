@@ -13,9 +13,9 @@
 Map<String,String> bMap = (Map<String,String>)request.getAttribute("list");
 %>
 <form method="post">
-<table>
+<table style="margin:auto; text-align:center">
 	<tr>
-		<th width="800">제목</th>
+		<th>제목</th>
 		<td><input type="text" name="bt_title" id="bt_title"></td>
 	</tr>
 	<tr>

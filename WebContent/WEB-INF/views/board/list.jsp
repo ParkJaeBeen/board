@@ -63,7 +63,7 @@ else
 	}
 	%>
 	<tr>
-		<td colspan="4" align="right"><a href="/views/board/insert"><button>글쓰기</button></a><td>   
+		<td colspan="7" align="right"><a href="/views/board/insert"><button>글쓰기</button></td>    
 	</tr>
 </table>
 </body>

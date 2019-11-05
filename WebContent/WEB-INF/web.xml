@@ -31,4 +31,18 @@
   	<servlet-name>BoardController</servlet-name>
   	<url-pattern>/board/*</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>TestController</servlet-name>
+  	<servlet-class>com.board.bdi.controller.TestController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>TestController</servlet-name>
+  	<url-pattern>/test/*</url-pattern>
+  </servlet-mapping>
+  
+ 
+  <session-config>
+  	<session-timeout>5</session-timeout>
+  </session-config>
 </web-app>
