@@ -22,6 +22,8 @@ else
 {
 	%>
 	<a href="/board/list"><button>게시판 가기</button></a> 
+	<a href="/user/user"><button>가입된 사용자 보기</button></a> 
+	<a href="/user/logout"><button>로그아웃</button></a> 
 	<%
 }
 %>

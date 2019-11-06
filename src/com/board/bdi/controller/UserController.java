@@ -1,6 +1,7 @@
 package com.board.bdi.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -19,7 +20,36 @@ public class UserController extends HttpServlet {
 	private UserService us = new UserServiceImpl();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("utf-8");
+		String uri = request.getRequestURI();
+		String cmd = uri.substring(6);
+		System.out.println(cmd + "(UserController의 doGet)");
+		String path = "/views/user/user";
+		Map<String,String> user = new HashMap<String,String>();
+		if("user".equals(cmd))
+		{
+			if(request.getParameter("ui_id") != null && request.getParameter("ui_id").trim().equals(""))
+			{
+				user.put("ui_id", request.getParameter("ui_id"));
+			}
+			if(request.getParameter("ut_num") != null && request.getParameter("ut_num").trim().equals(""))
+			{
+				user.put("ut_num", request.getParameter("ut_num"));
+			}
+			if(request.getParameter("ut_name") != null && request.getParameter("ut_name").trim().equals(""))
+			{
+				user.put("ut_name", request.getParameter("ut_name"));
+			}
+			request.setAttribute("list", us.getUserList(user));
+		}
+		else if("logout".equals(cmd))
+		{
+			HttpSession hs = request.getSession();
+			hs.invalidate();
+			path="/";
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
 	}
 
 	
@@ -61,10 +91,6 @@ public class UserController extends HttpServlet {
 				request.setAttribute("msg", "저장실패!");
 				request.setAttribute("url", "/user/signup"); 
 			}
-		}
-		else if("logout".equals(cmd))
-		{
-			
 		}
 		else if("update".equals(cmd))
 		{

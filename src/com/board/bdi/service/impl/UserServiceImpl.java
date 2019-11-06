@@ -1,6 +1,7 @@
 package com.board.bdi.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.board.bdi.dao.UserDAO;
@@ -28,5 +29,10 @@ public class UserServiceImpl implements UserService {
 		sMap.put("ut_pwd", utPwd);
 		
 		return udao.insertUser(sMap);
+	}
+	
+	public List<Map<String,String>> getUserList(Map<String,String> user)
+	{
+		return udao.selectUserList(user);
 	}
 }

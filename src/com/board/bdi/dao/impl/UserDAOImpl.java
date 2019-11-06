@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.board.bdi.dao.UserDAO;
@@ -75,10 +77,122 @@ public class UserDAOImpl implements UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)
+				{
+					rs.close();
+				}
+				if(ps != null)
+				{
+					ps.close();
+				}
+				if(con != null)
+				{
+					con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return null;
 		
+	}
+	
+	public List<Map<String, String>> selectUserList(Map<String, String> user)
+	{
+		List<Map<String, String>> userList = new ArrayList<>();
+		try {
+			con = DriverManager.getConnection(URL,ID,PWD);
+			String sql = "select * from user_table where 1=1 ";
+			if(user.get("ut_id") !=null)
+			{
+				sql += "and ut_id=?";
+			}
+			if(user.get("ut_name") != null)
+			{
+				sql += "and ut_name=?";
+			}
+			if(user.get("ut_num") != null)
+			{
+				sql += "and ut_num=?";
+			}
+//			if(user.get("ut_id") !=null || user.get("ut_num") !=null || user.get("ut_name") !=null)
+//			{
+//				sql += "where ";
+//			}
+			sql += " order by ut_num desc";
+			ps = con.prepareStatement(sql);
+			if(user.get("ut_id") != null && user.get("ut_name") == null && user.get("ut_num") == null)
+			{
+				ps.setString(1, user.get("ut_id"));
+			}
+			else if(user.get("ut_id") == null && user.get("ut_name") != null && user.get("ut_num") == null)
+			{
+				ps.setString(1, user.get("ut_name"));
+			}
+			else if(user.get("ut_id") == null && user.get("ut_name") == null && user.get("ut_num") != null)
+			{
+				ps.setString(1, user.get("ut_num"));
+			}
+			else if(user.get("ut_id") != null && user.get("ut_name") != null && user.get("ut_num") == null)
+			{
+				ps.setString(1, user.get("ut_id"));
+				ps.setString(2, user.get("ut_name"));
+			}
+			else if(user.get("ut_id") != null && user.get("ut_name") == null && user.get("ut_num") != null)
+			{
+				ps.setString(1, user.get("ut_id"));
+				ps.setString(2, user.get("ut_num"));
+			}
+			else if(user.get("ut_id") == null && user.get("ut_name") != null && user.get("ut_num") != null)
+			{
+				ps.setString(1, user.get("ut_name"));
+				ps.setString(2, user.get("ut_num"));
+			}
+			else
+			{
+				ps.setString(1, user.get("ut_id"));
+				ps.setString(2, user.get("ut_name"));
+				ps.setString(3, user.get("ut_num"));
+			}
+			rs = ps.executeQuery();
+			while(rs.next())
+			{
+				Map<String,String> map = new HashMap<>();
+				map.put("ut_num",rs.getString("ut_num"));
+				map.put("ut_id",rs.getString("ut_id"));
+				map.put("ut_name",rs.getString("ut_name"));
+				map.put("credat",rs.getString("credat"));
+				map.put("cretim",rs.getString("cretim"));
+				map.put("moddat",rs.getString("moddat"));
+				map.put("modtim",rs.getString("modtim"));
+				map.put("active",rs.getString("active"));
+				userList.add(map);
+			}
+			return userList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null)
+				{
+					rs.close();
+				}
+				if(ps != null)
+				{
+					ps.close();
+				}
+				if(con != null)
+				{
+					con.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 	
 	

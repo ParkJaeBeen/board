@@ -17,7 +17,7 @@ public class URIController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = request.getRequestURI();	//23.String uri 는 UserController 에 지정되어 있는 /views/msg 
 		uri = PREFIX + uri + SUFFIX;			//24. /views/msg 에 /WEB-INF,.jsp 추가 /WEB-INF/views/msg.jsp 가 됨
-		System.out.println(uri + "(내가나온다는건 URIController를 탄다는 것)");
+		System.out.println(uri + "(내가나온다는건 URIController의 doGet을 탄다는 것)");
 		RequestDispatcher rd = request.getRequestDispatcher(uri);
 		rd.forward(request, response);
 	}

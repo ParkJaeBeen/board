@@ -38,30 +38,22 @@ else
 		<th>수정날짜</th>
 		<th>수정시간</th>
 	</tr>
-	<%
-	if(request.getAttribute("list") == null)
-	{
-		out.println("<tr><td colspan=\"4\">게시물이 없습니다.</td></tr>");
-	}
-	else
-	{
-		List<Map<String,String>> btList = (List<Map<String,String>>)request.getAttribute("list");
-		for(Map<String,String> board : btList)
-		{
-		%>
-		<tr>
-			<td><%=board.get("bt_num")%></td>
-			<td><a href="/views/board/content?bt_num=<%=board.get("bt_num")%>"><%=board.get("bt_title")%></a></td>
-			<td><%=board.get("ut_num")%></td>
-			<td><%=board.get("credat")%></td>
-			<td><%=board.get("cretim")%></td>
-			<td><%=board.get("moddat")%></td>
-			<td><%=board.get("modtim")%></td>
-		</tr>
-		<%
-		}
-	}
-	%>
+	<c:if test="${empty list}">
+	<tr>
+		<td colspan="7">게시물이 없습니다</td>
+	</tr>
+	</c:if>
+	<c:forEach var="board" items="${list}">
+	<tr>
+		<td>${board.bt_num}</td>
+		<td><a href="/board/content?bt_num=${board.bt_num}">${board.bt_title}</a></td>
+		<td>${board.ut_name}</td> 
+		<td>${board.credat}</td>
+		<td>${board.cretim}</td>
+		<td>${board.moddat}</td>
+		<td>${board.modtim}</td>
+	</tr>
+	</c:forEach>
 	<tr>
 		<td colspan="7" align="right"><a href="/views/board/insert"><button>글쓰기</button></td>    
 	</tr>

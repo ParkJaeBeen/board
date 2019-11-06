@@ -29,6 +29,38 @@ public class BoardServiceImpl implements BoardService
 		return null;
 	}
 	
+	public Map<String,String> getBoard(Map<String,String> board)
+	{
+		return bd.getBoard(board);
+	}
+	
+	public Map<String,String> deleteBoard(Map<String,String> board)
+	{
+		int rs = bd.deleteBoard(board);
+		if(rs == 1)
+		{
+			return board;
+		}
+		return null;
+	}
+	
+	public Map<String,String> boardUpdate(Map<String,String> bMap)
+	{
+		Map<String,String> rMap = new HashMap<>();
+		int rs = bd.boardUpdateOk(bMap);
+		if(rs == 1)
+		{
+			rMap.put("msg","수정완료!");
+			rMap.put("url","/board/list");
+		}
+		else
+		{
+			rMap.put("msg","수정실패!");
+			rMap.put("url","/board/update");
+		}
+		return rMap;
+	}
+	
 //	public static void main(String[] args)
 //	{
 //		BoardService bs = new BoardServiceImpl();

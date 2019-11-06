@@ -24,7 +24,9 @@ public class BoardDAOImpl implements BoardDAO {
 	{
 		try {
 			con = DriverManager.getConnection(URL,ID,PWD);
-			String sql = "select * from board_table order by bt_num desc";
+			String sql = "select * from board_table bt,USER_TABLE ut ";
+			sql += " where bt.ut_num = ut.ut_num ";
+			sql += " order by bt_num desc";
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			List<Map<String,String>> boardList = new ArrayList<>();
@@ -35,6 +37,7 @@ public class BoardDAOImpl implements BoardDAO {
 				boardMap.put("bt_title",rs.getString("bt_title"));
 				boardMap.put("bt_content",rs.getString("bt_content"));
 				boardMap.put("ut_num",rs.getString("ut_num"));
+				boardMap.put("ut_name",rs.getString("ut_name"));
 				boardMap.put("credat",rs.getString("credat"));
 				boardMap.put("cretim",rs.getString("cretim"));
 				boardMap.put("moddat",rs.getString("moddat"));
@@ -95,6 +98,116 @@ public class BoardDAOImpl implements BoardDAO {
 		}
 		return 0;
 	}
+	
+	public Map<String,String> getBoard(Map<String,String> board)
+	{
+		try {
+			con = DriverManager.getConnection(URL,ID,PWD);
+			String sql = "select * from board_table bt,USER_TABLE ut ";
+			sql += " where bt.ut_num = ut.ut_num ";
+			sql += " and bt_num=?";
+			sql += " order by bt_num desc";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, board.get("bt_num"));
+			rs = ps.executeQuery();
+			while(rs.next())
+			{
+				Map<String, String> boardMap = new HashMap<>();
+				boardMap.put("bt_num",rs.getString("bt_num"));
+				boardMap.put("bt_title",rs.getString("bt_title"));
+				boardMap.put("bt_content",rs.getString("bt_content"));
+				boardMap.put("ut_num",rs.getString("ut_num"));
+				boardMap.put("ut_name",rs.getString("ut_name"));
+				boardMap.put("credat",rs.getString("credat"));
+				boardMap.put("cretim",rs.getString("cretim"));
+				boardMap.put("moddat",rs.getString("moddat"));
+				boardMap.put("modtim",rs.getString("modtim"));
+				return boardMap;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			}catch (SQLException sqle) {
+					sqle.printStackTrace();
+				}
+		}
+		return null;
+	}
+	
+	public int deleteBoard(Map<String,String> board)
+	{
+		try {
+			con = DriverManager.getConnection(URL,ID,PWD);
+			String sql = "delete from board_table where bt_num=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, board.get("bt_num"));
+
+			return ps.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			}catch (SQLException sqle) {
+					sqle.printStackTrace();
+				}
+		}
+		return 0;
+	}
+	
+	public int boardUpdateOk(Map<String, String> btMap)
+	{
+		try {
+			con = DriverManager.getConnection(URL,ID,PWD);
+			String sql = "update board_table ";
+			sql += " set bt_title=?,";
+			sql += " bt_content=?";
+			sql += " where bt_num=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, btMap.get("bt_title"));
+			ps.setString(2, btMap.get("bt_content"));
+			ps.setString(3, btMap.get("bt_num"));
+			
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			}catch (SQLException sqle) {
+					sqle.printStackTrace();
+				}
+		}
+		
+		return 0;
+	}
 	public static void main(String[] args)
 	{
 		BoardDAO bdao = new BoardDAOImpl();
@@ -108,7 +221,7 @@ public class BoardDAOImpl implements BoardDAO {
 		{
 			System.out.println("save");
 		}
-		else
+		else 
 		{
 			System.out.println("not save");
 		}
