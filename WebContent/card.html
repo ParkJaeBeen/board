@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="rDiv1"></div>
+	<div id="rDiv2"></div>
+	<button>click1</button>
+
+	<script>
+		var rDiv1 = document.getElementById('rDiv1');
+		var rDiv2 = document.getElementById('rDiv2');
+		var arr1 = [];
+		var arr2 = [];
+		var num1;
+		var num2;
+
+		for (var i = 0; i < 10; i++) {
+			num1 = Math.floor(Math.random() * 10) + 1;
+
+			if (arr1.indexOf(num1) == -1) {
+				arr1.push(num1);
+			} else {
+				i--;
+			}
+		}
+
+		for (var i = 0; i < 10; i++) {
+			num2 = Math.floor(Math.random() * 10) + 1;
+
+			if (arr2.indexOf(num2) == -1) {
+				arr2.push(num2);
+			} else {
+				i--;
+			}
+		}
+		
+		var html1 = '<table border="1"><tr>';
+		var html2 = '<table border="1"><tr>';
+		
+		for(var i=0;i<arr1.length;i++)
+		{
+			html1 += '<td onclick="checkCard(this,'+arr1[i]+',1)" id="td1-'+arr1[i]+'">#</td>';
+			html2 += '<td onclick="checkCard(this,'+arr2[i]+',2)" id="td2-'+arr2[i]+'">#</td>';	
+		}
+		html1 += '</tr></table>';
+		html2 += '</tr></table>';
+		
+		document.getElementById('rDiv1').innerHTML = html1;
+		document.getElementById('rDiv2').innerHTML = html2;
+		
+		function checkCard(tdObj,num,idx)
+		{
+			var tdObjs = tdObj.parentNode.childNodes;
+			var check1,check2;
+			
+			if(idx==1){
+				num1 = num;
+			}else{
+				num2 = num;
+			}
+			for(var i=0;i<tdObjs.length;i++){
+				var td = tdObjs[i];
+				if(td.innerHTML.indexOf('check')==-1){
+					td.innerHTML='#';
+				}
+				if(td==tdObj){
+					tdObj.innerHTML = num;
+				}
+			}
+			if(num1==num2){
+				check1 = document.getElementById('td1-'+num);
+				check2 = document.getElementById('td2-'+num);
+				check1.innerHTML='check['+num+']';
+				check2.innerHTML='check['+num+']';
+			}
+			
+		}
+		
+	</script>
+</body>
+</html>

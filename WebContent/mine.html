@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="rDiv"></div>
+<button onclick="startGame()">게임시작</button>
+	<script>
+		var rDiv = document.getElementById('rDiv');
+		var rNum;
+		function startGame()
+		{
+			rNum = Math.floor(Math.random() * 16) +1;
+			var html='<table border="1">';
+			var num = 1;
+			
+			for(var i=1;i<=4;i++)
+			{
+				html += '<tr>';
+				for(var j=1;j<=4;j++) 	
+				{
+					html += '<td><button onclick="clickBtn(this,'+ (num++) +')">지뢰아님</button></td>';
+				}
+				html += '</tr>';
+			}
+			html += '</table>';
+			rDiv.innerHTML = html;
+		}
+		var btnNum;
+		
+		function clickBtn(btnObj,btnNum)
+		{
+			if(btnNum==rNum)
+			{
+				alert('mine');	
+			}
+			else
+			{
+				btnObj.parentNode.innerHTML = '지뢰아님';
+			}
+				
+		}
+		
+	</script>
+</body>
+</html>

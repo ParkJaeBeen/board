@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+	<tr>
+		<td><input type="text" name="nums"></td>
+		<td><input type="text" name="nums"></td>
+		<td><input type="text" name="nums"></td>
+	</tr>
+	<tr>
+		<td><input type="text" name="nums"></td>
+		<td><input type="text" name="nums"></td>
+		<td><input type="text" name="nums"></td>
+	</tr>
+	<tr>
+		<td><input type="text" name="nums"></td>
+		<td><input type="text" name="nums"></td>
+		<td><input type="text" name="nums"></td>
+	</tr>
+	<tr>
+		<td><button onclick="number()">버튼</button></td>
+	</tr>
+</table>
+</body>
+<script>
+var arr = [];
+var inputs = document.getElementsByName("nums");
+
+function number()
+{
+	var rNum = Math.floor(Math.random() * 9) +1;
+	while(arr.indexOf(rNum)!=-1)
+	{
+		rNum = Math.floor(Math.random() * 9) +1;
+	}
+	arr.push(rNum);
+	if(arr.indexOf(rNum) == -1)
+	{
+		alert("끝");	
+	}
+	for(var i=0;i<inputs.length;i++)
+	{
+		var num = inputs[i].value;
+		if(rNum==num)
+		{
+			inputs[i].parentNode.innerHTML = 'O';	
+		}
+	}
+}
+
+</script>
+</html>

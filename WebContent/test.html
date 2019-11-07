@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="rDiv">
+<table border="1">
+	<tr>
+		<td><button onclick="clickBtn(this)" id="btn1">click1</button></td>
+		<td><button onclick="clickBtn(this)" id="btn2">click2</button></td>
+	</tr>
+</table>
+</div>
+<script>
+this.alert(this==window);
+function clickBtn(btn)
+{
+	alert(document.getElementById('btn1').innerHTML);
+	alert(btn.innerHTML);	
+}
+</script>
+</body>
+</html>
